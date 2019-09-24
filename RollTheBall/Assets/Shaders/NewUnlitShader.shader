@@ -61,7 +61,7 @@
 				float4 color = _Color;
 				float r = _RepeatFact;
                 fixed4 col = tex2D(_MainTex, i.uv * r/*(i.uv - _Time.y * speed) * 2*/);
-				fixed4 mask = tex2D(_MaskTex, (i.uv - _Time.y * (speed / r)) * r /*/ (_Time.x * 8) * speed*/);
+				fixed4 mask = tex2D(_MaskTex, (i.uv - _Time.y * (speed / r)) * r);
 
 				
 				clip(color.a - mask.b);
