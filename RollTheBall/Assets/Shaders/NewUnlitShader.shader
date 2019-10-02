@@ -57,10 +57,10 @@
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
 
-				float4 dispTexColor = tex2Dlod(_MaskTex, float4(v.uv.xy, 0.0, 0.0));
-				float displacement = dot(float3(0.21, 0.72, 0.07), dispTexColor.rgb) * 1;
-				float4 newVertexPos = v.vertex + float4(v.normal * displacement, 0.0);
-				o.vertex = UnityObjectToClipPos(newVertexPos);
+				//float4 dispTexColor = tex2Dlod(_MaskTex, float4(v.uv.xy, 0.0, 0.0));
+				//float displacement = dot(float3(0.21, 0.72, 0.07), dispTexColor.rgb) * 1;
+				//float4 newVertexPos = v.vertex + float4(v.normal * displacement, 0.0);
+				//o.vertex = UnityObjectToClipPos(newVertexPos);
 
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
 
@@ -78,12 +78,12 @@
 				float t = _Transparency;
 				float4 dir = _Direction;
 
-                fixed4 col = tex2D(_MainTex, i.uv/*(i.uv + _Time.y * speed * float2(dir.x, dir.y))*/);
+                fixed4 col = tex2D(_MainTex, (i.uv + _Time.y * speed * float2(dir.x, dir.y)));
 				fixed4 mask = tex2D(_MaskTex, (i.uv + _Time.y * speed * float2(dir.x, dir.y)));
 
 				
-				//clip(color.a - mask.b);
-				col.a = t;
+				clip(color.a - mask.b);
+				//col.a = t;
 				
 				fixed4 c = lerp(mask, col, col);
 
